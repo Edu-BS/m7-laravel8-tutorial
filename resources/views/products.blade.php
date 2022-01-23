@@ -10,6 +10,7 @@
             <p>{{ $prod->category }}</p>
             <form method="post" action={{ route('addToChart') }}>
                 {{ csrf_field() }}
+                @csrf
                 <input type="hidden" name="productid" value="{{$prod->id}}">
                 <input type="hidden" name="productname" value="{{$prod->name}}">
                 <input type="submit" value="Add product to shipping »" class="btn btn-secondary">
@@ -25,8 +26,9 @@
         <div class="card gx-5">
             <div class="card-body">
                 <h3>Filtrar Productos</h3>
-                <form id="filterForm" method="post" action="/products">
-                    {{ csrf_field() }}
+                <form id="filterForm" method="get" action="{{ route('productSearch') }}">
+                    {{-- {{ csrf_field() }} --}}
+                    
                     <div class="form-group">
                         <label for="priceMin">Precio Min</label>
                         <input id="priceMin" type="text" name="priceMin" value="{{ old('priceMin') }}" class="form-control">

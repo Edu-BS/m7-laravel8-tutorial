@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 Route::get('/products', [ProductController::class, 'list'])->name('productList');
-Route::post('/products', [ProductController::class, 'search'])->name('productSearch');
+Route::get('/search', [ProductController::class, 'search'])->name('productSearch');
 
 Route::post('/products/addToChart', [ProductController::class, 'addToChart'])->name('addToChart');
 Route::get('/products/emptyChart', [ProductController::class, 'emptyChart'])->name('emptyChart');

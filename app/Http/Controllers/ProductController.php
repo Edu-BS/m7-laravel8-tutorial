@@ -27,10 +27,9 @@ class ProductController extends Controller
             //Use uploadService (can throw UploadFileException)
             $this->uploadService = $UploadFileService;
             $this->uploadService->uploadFile($request->file('imagen'));
-
             //Creamos un nuevo producto
             $product = new Product;
-            $product->imagen  = $request->imagen->getClientOriginalName();
+            $product->imagen  = "storage/products/" . $request->imagen->getClientOriginalName();
             $product->name = $request->input('name');
             $product->desc  = $request->input('desc');
             $product->price  = $request->input('price');
@@ -47,14 +46,14 @@ class ProductController extends Controller
         return redirect()->action([ProductController::class, 'new'], ['success' => $success])->withError($this->error);
     }
 
-    public function search(ProductListRequest $request)
+    public function search(/* ProductListRequest */Request $request)
     {
         //This option allow to keep the value in the view Form using:
         //{{old('priceMin')}}
         $request->flash();
 
         $products = $this->product->query();
-
+        
         if ($request->filled('priceMin')) {
             $products->priceMin($request->input('priceMin'));
         }
@@ -70,7 +69,6 @@ class ProductController extends Controller
         if ($request->filled('category')) {
             $products->category($request->input('category'));
         }
-
         /**
          * USING JOIN in our table
          */
@@ -110,7 +108,11 @@ class ProductController extends Controller
     }
     public function addToChart(ProductListRequest $request)
     {
-        $carrito = $request->session()->get('carrito', []);
+        // dd($request);
+        // $request->session()->
+        dd($request);        
+        // dd($request->session()->has('carrito'));
+        $carrito = $request->session()->has('carrito') ? $request->session()->get('carrito', []) : array();
         array_push($carrito, $request->input('productname'));
         $request->session()->put('carrito', $carrito);
 

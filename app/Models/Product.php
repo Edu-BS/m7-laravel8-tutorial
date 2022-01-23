@@ -19,7 +19,7 @@ class Product extends Model
     }
     public function scopePriceMax($query, $input)
     {
-        return $query->where('price', '<', $input);
+        return $query->where('price', '<=', $input);
     }
     public function scopeCategory($query, $input)
     {

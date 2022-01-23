@@ -9,7 +9,6 @@ class UploadFileProvider
 
     function uploadFile($file)
     {
-
         //We throw a personal Exception if the file is null
         if ($file == null)
             throw new UploadFileException('File not defined');

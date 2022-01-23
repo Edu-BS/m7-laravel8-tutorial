@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-class ProductListRequest extends FormRequest
+class ProductListRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
