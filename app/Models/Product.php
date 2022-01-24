@@ -33,6 +33,10 @@ class Product extends Model
     {
         return $query->Leftjoin('categories', 'products.category_id', '=', 'categories.id');
     }
+    public function scopeIdIn($query, $input)
+    {
+        return $query->whereIn('products.id', $input);
+    }
     public function new()
     {
         $new = new Product;

@@ -9,7 +9,7 @@
             <h3>{{ $prod->price }} €</h3>
             <p>{{ $prod->category }}</p>
             <form method="post" action={{ route('addToChart') }}>
-                {{ csrf_field() }}
+                {{-- {{ csrf_field() }} --}}
                 @csrf
                 <input type="hidden" name="productid" value="{{$prod->id}}">
                 <input type="hidden" name="productname" value="{{$prod->name}}">

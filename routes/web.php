@@ -23,6 +23,7 @@ Route::get('/products', [ProductController::class, 'list'])->name('productList')
 Route::get('/search', [ProductController::class, 'search'])->name('productSearch');
 
 Route::post('/products/addToChart', [ProductController::class, 'addToChart'])->name('addToChart');
+Route::get('/products/chart', [ProductController::class, 'viewChart'])->name('chart');
 Route::get('/products/emptyChart', [ProductController::class, 'emptyChart'])->name('emptyChart');
 Route::get('/products/new', [ProductController::class, 'new']);
 //Definimos la accion de save cuando se envia el formulario

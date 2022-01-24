@@ -106,19 +106,36 @@ class ProductController extends Controller
         $categories = Category::get();
         return view('new_product')->with('categories', $categories);
     }
-    public function addToChart(ProductListRequest $request)
+    public function addToChart(Request $request)
     {
         // dd($request);
         // $request->session()->
-        dd($request);        
-        // dd($request->session()->has('carrito'));
-        $carrito = $request->session()->has('carrito') ? $request->session()->get('carrito', []) : array();
-        array_push($carrito, $request->input('productname'));
+        // dd($request);        
+        // dd($request->session());
+        $carrito = $request->session()->get('carrito', []);
+        array_push($carrito, $request->input('productid'));
         $request->session()->put('carrito', $carrito);
 
         //Redirect to page who send the request:
         return redirect(url()->previous());
+        
     }
+
+    public function viewChart(Request $request)
+    {
+        // $request->session()->forget('carrito');
+        // dd($request->session()->get('carrito'));
+
+        $products = $request->session()->get('carrito');
+        
+        $productsChart = $this->product->query();
+
+        $productsChart->idIn($products);
+        $productsChart->joinCategory();
+        // dd($productsChart->get());
+        return view('products')->with('productos', $productsChart->get(['products.*', 'categories.name as category']));
+    }
+
     public function emptyChart(Request $request)
     {
         $request->session()->forget('carrito');
